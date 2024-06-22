@@ -1,0 +1,35 @@
+{
+  "name": "8xff-console",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/lodash": "^4.17.5",
+    "eslint": "^8.46.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.4",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@9.1.1",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@phosphor-icons/react": "^2.1.6",
+    "axios": "^1.7.2",
+    "lodash": "^4.17.21",
+    "react-hook-form": "^7.51.5",
+    "sonner": "^1.4.41",
+    "usehooks-ts": "^3.1.0"
+  }
+}

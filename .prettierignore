@@ -1,0 +1,2 @@
+src/graphql/generated/*.tsx
+src/graphql/operations/*.graphql
