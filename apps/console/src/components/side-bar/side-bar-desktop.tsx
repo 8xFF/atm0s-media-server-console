@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@packages/ui/components/index'
 import { HomeIcon, NetworkIcon } from '@packages/ui/icons/index'
 import { cn } from '@packages/ui/lib/utils'
-import { ChangeTheme } from '@packages/ui/providers/index'
 
 export const SidebarDesktop = () => {
   const pathname = usePathname()
@@ -14,7 +13,7 @@ export const SidebarDesktop = () => {
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
         <Link
           href="/"
-          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+          className="group flex shrink-0 items-center justify-center gap-2 font-semibold text-primary-foreground h-8 w-8 text-base"
         >
           <img src="/logo.svg" alt="" className="rounded border" />
           <span className="sr-only">8xFF</span>
@@ -24,7 +23,7 @@ export const SidebarDesktop = () => {
             <Link
               href="/"
               className={cn(
-                'flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8',
+                'flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:text-foreground',
                 pathname === '/' ? 'text-muted-foreground bg-accent' : 'text-accent-foreground'
               )}
             >
@@ -39,7 +38,7 @@ export const SidebarDesktop = () => {
             <Link
               href="/zones"
               className={cn(
-                'flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8',
+                'flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:text-foreground',
                 pathname === '/zones' ? 'text-muted-foreground bg-accent' : 'text-accent-foreground'
               )}
             >
@@ -49,9 +48,6 @@ export const SidebarDesktop = () => {
           </TooltipTrigger>
           <TooltipContent side="right">Zones</TooltipContent>
         </Tooltip>
-      </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
-        <ChangeTheme />
       </nav>
     </aside>
   )

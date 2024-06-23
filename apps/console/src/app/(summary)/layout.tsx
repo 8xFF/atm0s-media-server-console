@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const ZonesLayoutScreen: React.FC<Props> = ({ children }) => {
+const SummaryLayoutScreen: React.FC<Props> = ({ children }) => {
   const { hasAccess } = checkAuth()
 
   return (
@@ -13,14 +13,14 @@ const ZonesLayoutScreen: React.FC<Props> = ({ children }) => {
       <Layout
         breadcrumbs={[
           {
-            title: 'Zones',
+            title: 'Summary',
             href: '/',
           },
           {
             title: 'Overview',
           },
         ]}
-        title="Zones"
+        title="Summary"
       >
         {children}
       </Layout>
@@ -28,4 +28,4 @@ const ZonesLayoutScreen: React.FC<Props> = ({ children }) => {
   )
 }
 
-export default ZonesLayoutScreen
+export default SummaryLayoutScreen
