@@ -17,3 +17,4 @@ export const RecoilProvider: React.FC<Props> = ({ children }) => {
 }
 
 export * from 'recoil'
+export * from 'recoil-persist'

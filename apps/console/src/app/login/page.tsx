@@ -60,7 +60,7 @@ export default function LoginScreen() {
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="secret">Secret key</Label>
-              <Input id="secret" type="secret" placeholder="Enter your secret" {...register('secret', { required: true })} />
+              <Input id="secret" placeholder="Enter your secret" {...register('secret', { required: true })} />
               {errors.secret && <span className="text-xs text-red-500">This field is required</span>}
             </div>
           </CardContent>

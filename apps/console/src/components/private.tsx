@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { redirect, usePathname, useRouter } from 'next/navigation'
 import { Button } from '@packages/ui/components/index'
 
 type Props = {
@@ -10,6 +10,10 @@ type Props = {
 
 export const Private: React.FC<Props> = ({ hasAccess, children }) => {
   const router = useRouter()
+  const pathname = usePathname()
+
+  if (pathname === '/' && !hasAccess) redirect('/login')
+
   return hasAccess ? (
     children
   ) : (
