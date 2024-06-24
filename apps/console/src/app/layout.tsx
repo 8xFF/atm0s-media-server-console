@@ -1,3 +1,4 @@
+import 'mapbox-gl/dist/mapbox-gl.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Toaster } from 'sonner'

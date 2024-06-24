@@ -11,13 +11,16 @@
   },
   "dependencies": {
     "@packages/ui": "workspace:*",
+    "mapbox-gl": "^3.4.0",
     "next": "^14.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-map-gl": "^7.1.7"
   },
   "devDependencies": {
     "@packages/eslint-config": "workspace:*",
     "@packages/typescript-config": "workspace:*",
+    "@types/mapbox-gl": "^3.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
