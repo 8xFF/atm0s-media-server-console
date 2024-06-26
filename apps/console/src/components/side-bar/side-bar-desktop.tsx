@@ -1,5 +1,6 @@
 'use client'
 
+import { includes } from 'lodash'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@packages/ui/components/index'
@@ -36,10 +37,10 @@ export const SidebarDesktop = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
-              href="/zones"
+              href="/zone/list"
               className={cn(
                 'flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:text-foreground',
-                pathname === '/zones' ? 'text-muted-foreground bg-accent' : 'text-accent-foreground'
+                includes(pathname, '/zone') ? 'text-muted-foreground bg-accent' : 'text-accent-foreground'
               )}
             >
               <NetworkIcon className="h-5 w-5" />

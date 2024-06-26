@@ -1,15 +1,12 @@
 import { Layout, Private } from '@/components'
-import { checkAuth } from '@/middleware'
 
 type Props = {
   children: React.ReactNode
 }
 
 const SummaryLayoutScreen: React.FC<Props> = ({ children }) => {
-  const { hasAccess } = checkAuth()
-
   return (
-    <Private hasAccess={hasAccess}>
+    <Private>
       <Layout
         breadcrumbs={[
           {

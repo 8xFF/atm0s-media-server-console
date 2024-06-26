@@ -1,13 +1,13 @@
 'use client'
 
-import { removeCookie } from '@packages/ui/lib/cookies'
 import { useRouter } from 'next/navigation'
+import { removeLocalStorage } from '@packages/ui/lib/storage'
 
 export const useLogout = () => {
   const router = useRouter()
 
   const onLogout = () => {
-    removeCookie('token')
+    removeLocalStorage('token')
     router.push('/login')
   }
 

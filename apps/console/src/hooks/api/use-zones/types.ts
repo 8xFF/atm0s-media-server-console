@@ -66,7 +66,7 @@ export type TZone = {
 
 export type TZoneInput = {
   payload: {
-    id: string
+    id?: string | null
   }
   options?: Omit<DefinedInitialDataOptions<TZone>, 'initialData' | 'queryKey'>
 }

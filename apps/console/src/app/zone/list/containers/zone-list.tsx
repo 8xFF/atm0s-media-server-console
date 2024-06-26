@@ -1,10 +1,10 @@
 'use client'
 
-import { ZoneItem } from './components'
+import { ZoneItem } from '../components'
 import { map } from 'lodash'
 import { useZonesQuery } from '@/hooks'
 
-export default function ZonesScreen() {
+export const ZoneList = () => {
   const { data: dataZones } = useZonesQuery()
 
   return (

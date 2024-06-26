@@ -1,5 +1,4 @@
 import { Layout, Private } from '@/components'
-import { checkAuth } from '@/middleware'
 
 type Props = {
   children: React.ReactNode
@@ -9,15 +8,13 @@ type Props = {
 }
 
 const DetailZoneLayoutScreen: React.FC<Props> = ({ children }) => {
-  const { hasAccess } = checkAuth()
-
   return (
-    <Private hasAccess={hasAccess}>
+    <Private>
       <Layout
         breadcrumbs={[
           {
             title: 'Zones',
-            href: '/zones',
+            href: '/zone/list',
           },
           {
             title: 'Detail',

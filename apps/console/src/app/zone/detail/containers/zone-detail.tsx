@@ -1,18 +1,24 @@
 'use client'
 
-import { Consoles, Gateways, Medias } from './components'
+import { Consoles, Gateways, Medias } from '../components'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 import { ExternalLinkIcon } from '@packages/ui/icons/index'
 import { useDetailZoneQuery } from '@/hooks'
 
-export default function DetailZoneScreen() {
-  const params = useParams()
+export const ZoneDetail = () => {
+  const searchParams = useSearchParams()
+  const id = searchParams.get('zone_id')
   const { data: dataDetailZone } = useDetailZoneQuery({
     payload: {
-      id: params?.id as string,
+      id,
+    },
+    options: {
+      enabled: !!id,
     },
   })
+
+  if (!id) redirect('/zone/list')
 
   return (
     <div className="grid gap-6">

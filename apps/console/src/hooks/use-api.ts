@@ -2,12 +2,12 @@
 
 import { useLogout } from '.'
 import axios from 'axios'
-import { getCookie } from '@packages/ui/lib/cookies'
+import { getLocalStorage } from '@packages/ui/lib/storage'
 import { env } from '@/config/env'
 
 export const useApi = (url?: string) => {
   const { onLogout } = useLogout()
-  const token = getCookie('token')
+  const token = getLocalStorage('token')
 
   const api = axios.create({
     baseURL: url || env.API_URL,
