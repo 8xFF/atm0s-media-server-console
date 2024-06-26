@@ -1,5 +1,6 @@
 'use client'
 
+import { includes } from 'lodash'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button, Sheet, SheetContent, SheetTrigger } from '@packages/ui/components/index'
@@ -38,10 +39,10 @@ export const SidebarMobile = () => {
               Summary
             </Link>
             <Link
-              href="/zones"
+              href="/zone/list"
               className={cn(
                 'flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:text-foreground',
-                pathname === '/zones' ? 'bg-muted' : ''
+                includes(pathname, '/zone') ? 'bg-muted' : ''
               )}
             >
               <NetworkIcon className="h-5 w-5" />
