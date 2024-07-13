@@ -1,6 +1,6 @@
 'use client'
 
-import { Consoles, Gateways, Medias } from '../components'
+import { ZoneDetailItem } from '../components'
 import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
 import { ExternalLinkIcon } from '@packages/ui/icons/index'
@@ -30,9 +30,10 @@ export const ZoneDetail = () => {
         <div>Lat: {dataDetailZone?.data?.lat}</div>|<div>Lon: {dataDetailZone?.data?.lon}</div>
         <ExternalLinkIcon size={16} />
       </Link>
-      <Consoles consoles={dataDetailZone?.data?.consoles} />
-      <Gateways gateways={dataDetailZone?.data?.gateways} />
-      <Medias medias={dataDetailZone?.data?.medias} />
+      <ZoneDetailItem title='connectors' data={dataDetailZone?.data?.connectors} hasLogs />
+      <ZoneDetailItem title='consoles' data={dataDetailZone?.data?.consoles} />
+      <ZoneDetailItem title='gateways' data={dataDetailZone?.data?.gateways} />
+      <ZoneDetailItem title='medias' data={dataDetailZone?.data?.medias} />
     </div>
   )
 }

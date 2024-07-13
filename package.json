@@ -27,6 +27,7 @@
     "@emotion/css": "^11.11.2",
     "@phosphor-icons/react": "^2.1.6",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "react-hook-form": "^7.51.5",
     "sonner": "^1.4.41",

@@ -4,6 +4,10 @@ import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
 import '@packages/ui/globals.css'
 import { MainProvider } from '@packages/ui/providers/index'
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(LocalizedFormat)
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',

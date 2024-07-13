@@ -2,12 +2,9 @@ import { Layout, Private } from '@/components'
 
 type Props = {
   children: React.ReactNode
-  params: {
-    id: string
-  }
 }
 
-const ZoneDetailLayoutScreen: React.FC<Props> = ({ children }) => {
+const ZoneLogsLayoutScreen: React.FC<Props> = ({ children }) => {
   return (
     <Private>
       <Layout
@@ -17,10 +14,10 @@ const ZoneDetailLayoutScreen: React.FC<Props> = ({ children }) => {
             href: '/zone/list',
           },
           {
-            title: 'Detail',
+            title: 'Logs',
           },
         ]}
-        title="Detail Zone"
+        title="Logs"
         hasBackButton
       >
         {children}
@@ -29,4 +26,4 @@ const ZoneDetailLayoutScreen: React.FC<Props> = ({ children }) => {
   )
 }
 
-export default ZoneDetailLayoutScreen
+export default ZoneLogsLayoutScreen

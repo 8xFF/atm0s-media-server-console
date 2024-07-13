@@ -1,3 +1,1 @@
-export * from './gateways'
-export * from './consoles'
-export * from './medias'
+export * from './zone-detail-item'

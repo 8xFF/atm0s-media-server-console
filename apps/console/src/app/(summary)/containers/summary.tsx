@@ -8,7 +8,7 @@ import { Hash } from '@packages/ui/icons/index'
 import { useTheme } from '@packages/ui/providers/index'
 import { useZonesQuery } from '@/hooks'
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2FvaGF2YW4iLCJhIjoiY2x4dm96OXdsMjdpdzJxcXl1OWlzY3AxNyJ9.yHpDkf4ks4LRzpXxW8iYKQ'
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2FvaGF2YW4iLCJhIjoiY2x5anNkcDBzMGw2bTJqcGF4OTNjbTk1dCJ9.quX_1lfj-fPC8hNzpwUWiA'
 
 export const Summary = () => {
   const { theme } = useTheme()

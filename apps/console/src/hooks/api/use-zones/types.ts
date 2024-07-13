@@ -35,25 +35,15 @@ export type TDataDetailZoneCommon = {
   disk: number
   memory: number
   node_id: number
+  live?: number
+  max?: number
 }
 
-export type TDataDetailZoneConsole = TDataDetailZoneCommon
-
-export type TDataDetailZoneGateway = {
-  live: number
-  max: number
-} & TDataDetailZoneCommon
-
-export type TDataDetailZoneMedia = {
-  live: number
-  max: number
-} & TDataDetailZoneCommon
-
 export type TDataDetailZone = {
-  connectors: any[]
-  consoles: TDataDetailZoneConsole[]
-  gateways: TDataDetailZoneGateway[]
-  medias: TDataDetailZoneMedia[]
+  connectors: TDataDetailZoneCommon[]
+  consoles: TDataDetailZoneCommon[]
+  gateways: TDataDetailZoneCommon[]
+  medias: TDataDetailZoneCommon[]
   lat: number
   lon: number
 }
