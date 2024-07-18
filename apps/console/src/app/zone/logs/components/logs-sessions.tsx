@@ -32,9 +32,9 @@ export const LogsSessions: React.FC<Props> = () => {
             <TableRow>
               <TableHead className="w-6" />
               <TableHead>Id</TableHead>
-              <TableHead>Peer</TableHead>
-              <TableHead>Room Id</TableHead>
-              <TableHead>Room</TableHead>
+              <TableHead>IP</TableHead>
+              <TableHead>SDK</TableHead>
+              <TableHead>User Agent</TableHead>
               <TableHead className="text-right">Created At</TableHead>
             </TableRow>
           </TableHeader>
