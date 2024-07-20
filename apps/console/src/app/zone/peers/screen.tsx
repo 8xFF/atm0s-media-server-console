@@ -2,12 +2,13 @@
 
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
-import { map } from 'lodash'
-import { useSearchParams } from 'next/navigation'
+import { isEmpty, map } from 'lodash'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { Fragment, useState } from 'react'
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
   Table,
@@ -18,47 +19,93 @@ import {
   TableRow,
 } from '@packages/ui/components/index'
 import { MinusIcon, PlusIcon } from '@packages/ui/icons/index'
+import { Layout, Pagination } from '@/components'
 import { TDataConnectorLogPeers, useConnectorLogPeersQuery } from '@/hooks'
 
 dayjs.extend(LocalizedFormat)
 
 export const ZonePeers = () => {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const connector_id = searchParams.get('connector_id')
   const room_id = searchParams.get('room_id')
+
+  if (!connector_id) redirect('/zone/list')
+
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0
+  const [limit] = useState(20)
   const { data: peers } = useConnectorLogPeersQuery({
     payload: {
       connector_id,
       room_id,
-      page: 0,
-      limit: 10000,
+      page,
+      limit,
     },
     options: {
-      enabled: !!connector_id,
+      enabled: !!connector_id && !!room_id,
     },
   })
+
+  const onPrev = () => {
+    if (page === 0) return
+    router.push(`/zone/peers?connector_id=${connector_id}&room_id=${room_id}&page=${page - 1}`)
+  }
+
+  const onNext = () => {
+    router.push(`/zone/peers?connector_id=${connector_id}&room_id=${room_id}&page=${page + 1}`)
+  }
+
   return (
-    <Card>
-      <CardContent className="p-3 grid gap-2">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-6" />
-              <TableHead>Id</TableHead>
-              <TableHead>Peer</TableHead>
-              <TableHead>Room Id</TableHead>
-              <TableHead>Room</TableHead>
-              <TableHead className="text-right">Created At</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {map(peers?.data, (p) => (
-              <LogsPeerItem peer={p} key={p?.id} />
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <Layout
+      breadcrumbs={[
+        {
+          title: 'Zones',
+          href: '/zone/list',
+        },
+        {
+          title: '...',
+        },
+        {
+          title: 'Peers',
+        },
+      ]}
+      title="Peers"
+      hasBackButton
+    >
+      <Card>
+        <CardHeader className="pb-0">
+          <Pagination onPrev={onPrev} onNext={onNext} />
+        </CardHeader>
+        <CardContent className="p-3 grid gap-2">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-6" />
+                <TableHead>Id</TableHead>
+                <TableHead>Peer</TableHead>
+                <TableHead>Room Id</TableHead>
+                <TableHead>Room</TableHead>
+                <TableHead className="text-right">Created At</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {!isEmpty(peers?.data) ? (
+                map(peers?.data, (p) => <LogsPeerItem peer={p} key={p?.id} />)
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center">
+                    <span className="text-muted-foreground">No peers found</span>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+        <CardFooter>
+          <Pagination onPrev={onPrev} onNext={onNext} />
+        </CardFooter>
+      </Card>
+    </Layout>
   )
 }
 
@@ -117,9 +164,6 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({ peer }) => {
                           <TableCell className="text-right">
                             {s?.leaved_at ? dayjs(s?.leaved_at).format('LLL') : '---'}
                           </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell colSpan={5}></TableCell>
                         </TableRow>
                       </Fragment>
                     ))}

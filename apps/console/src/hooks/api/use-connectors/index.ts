@@ -29,7 +29,7 @@ export const useConnectorLogRoomsQuery = ({
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogRoomsQuery'],
+    queryKey: ['useConnectorLogRoomsQuery', payload],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -63,7 +63,7 @@ export const useConnectorLogPeersQuery = ({
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogPeersQuery'],
+    queryKey: ['useConnectorLogPeersQuery', payload],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -97,7 +97,7 @@ export const useConnectorLogSessionsQuery = ({
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogSessionsQuery'],
+    queryKey: ['useConnectorLogSessionsQuery', payload],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -129,7 +129,7 @@ export const useConnectorLogEventsQuery = ({
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogEventsQuery'],
+    queryKey: ['useConnectorLogEventsQuery', payload],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,

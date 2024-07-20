@@ -12,13 +12,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   Button,
-  Tabs,
-  TabsList,
-  TabsTrigger,
 } from '@packages/ui/components/index'
-import { ChevronLeftIcon, LayoutGridIcon, LayoutListIcon } from '@packages/ui/icons/index'
-import { useRecoilState } from '@packages/ui/providers/index'
-import { LayoutSettings, layoutSettingsAtom } from '@/recoils'
+import { ChevronLeftIcon } from '@packages/ui/icons/index'
 
 type Props = {
   children: React.ReactNode
@@ -27,13 +22,12 @@ type Props = {
     href?: string
   }[]
   title: string
-  visibleLayoutSetting?: boolean
   hasBackButton?: boolean
+  extra?: React.ReactNode
 }
 
-export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, visibleLayoutSetting, hasBackButton }) => {
+export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, hasBackButton, extra }) => {
   const router = useRouter()
-  const [layoutSettings, setLayoutSettings] = useRecoilState(layoutSettingsAtom)
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 pb-6">
       <SidebarDesktop />
@@ -48,8 +42,8 @@ export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, visibleL
                   <span className="sr-only">Back</span>
                 </Button>
               )}
-              <Breadcrumb className="flex">
-                <BreadcrumbList>
+              <Breadcrumb>
+                <BreadcrumbList className="flex-nowrap">
                   {map(breadcrumbs, (breadcrumb, index) => (
                     <BreadcrumbItem key={index}>
                       {breadcrumb.href ? (
@@ -67,18 +61,7 @@ export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, visibleL
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
-            {visibleLayoutSetting && (
-              <Tabs value={layoutSettings} onValueChange={setLayoutSettings} className="w-fit">
-                <TabsList className="p-1 h-fit">
-                  <TabsTrigger value={LayoutSettings.List}>
-                    <LayoutListIcon size={16} />
-                  </TabsTrigger>
-                  <TabsTrigger value={LayoutSettings.Grid}>
-                    <LayoutGridIcon size={16} />
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            )}
+            {extra}
           </div>
           {children}
         </main>

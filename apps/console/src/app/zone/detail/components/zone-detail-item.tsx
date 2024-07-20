@@ -24,7 +24,7 @@ export const ZoneDetailItem: React.FC<Props> = ({ title, data, hasLogs }) => {
       <div className="grid gap-4 xl:grid-cols-2">
         {map(data, (d, dIdx) => (
           <Card key={dIdx}>
-            <CardContent className="p-3 grid gap-2">
+            <CardContent className="p-3 grid gap-3">
               <div className="flex items-center justify-between">
                 <div className="text-xs flex flex-row gap-y-2">
                   <div className="w-20 font-medium">node_id</div>

@@ -4,8 +4,8 @@ type Props = {
   children: React.ReactNode
 }
 
-const SummaryLayout: React.FC<Props> = ({ children }) => {
+const ZoneLayout: React.FC<Props> = ({ children }) => {
   return <Private>{children}</Private>
 }
 
-export default SummaryLayout
+export default ZoneLayout
