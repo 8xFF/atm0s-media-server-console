@@ -1,5 +1,5 @@
-import { ZoneDetail } from './containers'
+import { ZoneDetail } from './screen'
 
-export default function ZoneDetailScreen() {
+export default function ZoneDetailPage() {
   return <ZoneDetail />
 }

@@ -1,5 +1,5 @@
-import { Summary } from './containers'
+import { Summary } from './screen'
 
-export default function SummaryScreen() {
+export default function SummaryPage() {
   return <Summary />
 }

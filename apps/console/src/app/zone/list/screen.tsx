@@ -1,11 +1,11 @@
 'use client'
 
-import { ZoneItem } from '../components'
+import { ZoneItem } from './components'
 import { map } from 'lodash'
 import { useZonesQuery } from '@/hooks'
 
 export const ZoneList = () => {
-  const { data: dataZones } = useZonesQuery()
+  const { data: dataZones } = useZonesQuery({})
 
   return (
     <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">

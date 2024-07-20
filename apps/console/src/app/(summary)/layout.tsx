@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const SummaryLayoutScreen: React.FC<Props> = ({ children }) => {
+const SummaryLayout: React.FC<Props> = ({ children }) => {
   return (
     <Private>
       <Layout
@@ -25,4 +25,4 @@ const SummaryLayoutScreen: React.FC<Props> = ({ children }) => {
   )
 }
 
-export default SummaryLayoutScreen
+export default SummaryLayout

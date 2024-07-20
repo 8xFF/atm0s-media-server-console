@@ -4,7 +4,8 @@ type Props = {
   children: React.ReactNode
 }
 
-const ZoneLogsLayoutScreen: React.FC<Props> = ({ children }) => {
+const ZoneRoomsLayout: React.FC<Props> = ({ children }) => {
+  const title = 'Rooms'
   return (
     <Private>
       <Layout
@@ -14,10 +15,10 @@ const ZoneLogsLayoutScreen: React.FC<Props> = ({ children }) => {
             href: '/zone/list',
           },
           {
-            title: 'Logs',
+            title,
           },
         ]}
-        title="Logs"
+        title={title}
         hasBackButton
       >
         {children}
@@ -26,4 +27,4 @@ const ZoneLogsLayoutScreen: React.FC<Props> = ({ children }) => {
   )
 }
 
-export default ZoneLogsLayoutScreen
+export default ZoneRoomsLayout

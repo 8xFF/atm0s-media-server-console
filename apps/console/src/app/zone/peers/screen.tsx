@@ -1,27 +1,40 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { TDataConnectorLogsPeers, useConnectorLogsPeersQuery } from '@/hooks'
-import { Card, CardContent, CardHeader, CardTitle, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@packages/ui/components/index'
-import { map } from 'lodash'
 import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import { map } from 'lodash'
+import { useSearchParams } from 'next/navigation'
 import { Fragment, useState } from 'react'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@packages/ui/components/index'
 import { MinusIcon, PlusIcon } from '@packages/ui/icons/index'
+import { TDataConnectorLogPeers, useConnectorLogPeersQuery } from '@/hooks'
 
-type Props = {
-}
+dayjs.extend(LocalizedFormat)
 
-export const LogsPeers: React.FC<Props> = () => {
+export const ZonePeers = () => {
   const searchParams = useSearchParams()
-  const id = searchParams.get('connector_id')
-  const { data } = useConnectorLogsPeersQuery({
+  const connector_id = searchParams.get('connector_id')
+  const room_id = searchParams.get('room_id')
+  const { data: peers } = useConnectorLogPeersQuery({
     payload: {
-      id,
+      connector_id,
+      room_id,
       page: 0,
       limit: 10000,
     },
     options: {
-      enabled: !!id,
+      enabled: !!connector_id,
     },
   })
   return (
@@ -39,8 +52,8 @@ export const LogsPeers: React.FC<Props> = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {map(data?.data, (d) => (
-              <LogsPeerItem peer={d} key={d?.id} />
+            {map(peers?.data, (p) => (
+              <LogsPeerItem peer={p} key={p?.id} />
             ))}
           </TableBody>
         </Table>
@@ -50,18 +63,20 @@ export const LogsPeers: React.FC<Props> = () => {
 }
 
 type LogsPeerItemProps = {
-  peer: TDataConnectorLogsPeers
+  peer: TDataConnectorLogPeers
 }
 
-const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
-  peer
-}) => {
+const LogsPeerItem: React.FC<LogsPeerItemProps> = ({ peer }) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <>
       <TableRow className="cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <TableCell>
-          {!expanded ? <PlusIcon className="text-muted-foreground" size={16} /> : <MinusIcon className="text-muted-foreground" size={16} />}
+          {!expanded ? (
+            <PlusIcon className="text-muted-foreground" size={16} />
+          ) : (
+            <MinusIcon className="text-muted-foreground" size={16} />
+          )}
         </TableCell>
         <TableCell>{peer?.id}</TableCell>
         <TableCell>{peer?.peer}</TableCell>
@@ -73,7 +88,7 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
         <TableRow>
           <TableCell colSpan={6} className="bg-muted">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
                 <CardTitle className="text-base font-medium">Sessions</CardTitle>
               </CardHeader>
               <CardContent className="p-3 grid gap-2">
@@ -82,11 +97,9 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
                     <TableRow>
                       <TableHead>Id</TableHead>
                       <TableHead>Session</TableHead>
-                      <TableHead>Peer Id</TableHead>
-                      <TableHead>Peer</TableHead>
-                      <TableHead className="text-right">Leaved At</TableHead>
-                      <TableHead className="text-right">Joined At</TableHead>
                       <TableHead className="text-right">Created At</TableHead>
+                      <TableHead className="text-right">Joined At</TableHead>
+                      <TableHead className="text-right">Leaved At</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -95,16 +108,18 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
                         <TableRow>
                           <TableCell>{s?.id}</TableCell>
                           <TableCell>{s?.session}</TableCell>
-                          <TableCell>{s?.peer_id}</TableCell>
-                          <TableCell>{s?.peer}</TableCell>
-                          <TableCell className="text-right">{s?.leaved_at ? dayjs(s?.leaved_at).format('LLL') : '---'}</TableCell>
-                          <TableCell className="text-right">{s?.joined_at ? dayjs(s?.joined_at).format('LLL') : '---'}</TableCell>
-                          <TableCell className="text-right">{s?.created_at ? dayjs(s?.created_at).format('LLL') : '---'}</TableCell>
+                          <TableCell className="text-right">
+                            {s?.created_at ? dayjs(s?.created_at).format('LLL') : '---'}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {s?.joined_at ? dayjs(s?.joined_at).format('LLL') : '---'}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {s?.leaved_at ? dayjs(s?.leaved_at).format('LLL') : '---'}
+                          </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell colSpan={5}>
-
-                          </TableCell>
+                          <TableCell colSpan={5}></TableCell>
                         </TableRow>
                       </Fragment>
                     ))}

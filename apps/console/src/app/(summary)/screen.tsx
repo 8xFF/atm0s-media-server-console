@@ -13,7 +13,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2FvaGF2YW4iLCJhIjoiY2x5anNkcDBzMGw2bTJqcGF4OTN
 export const Summary = () => {
   const { theme } = useTheme()
   const [detectTheme, setDetectTheme] = useState<string>('light')
-  const { data: zones } = useZonesQuery()
+  const { data: zones } = useZonesQuery({})
 
   const totalZones = zones?.data?.length
   const totalGateways = sumBy(zones?.data, 'gateways')

@@ -1,12 +1,11 @@
-'use client'
-
-import { TZoneInput, TZonesInput } from './types'
+import { TZone, TZones } from './types'
 import { useQuery } from '@packages/ui/providers/index'
 import { useApi } from '@/hooks'
+import { TInputQuery } from '@/types'
 
 export * from './types'
 
-export const useZonesQuery = (input?: TZonesInput) => {
+export const useZonesQuery = ({ options }: TInputQuery<{}, TZones>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
@@ -19,15 +18,23 @@ export const useZonesQuery = (input?: TZonesInput) => {
     queryFn: fetcher,
     retry: false,
     refetchInterval: 60000,
-    ...input?.options,
+    ...options,
   })
 }
 
-export const useDetailZoneQuery = ({ payload, options }: TZoneInput) => {
+export const useDetailZoneQuery = ({
+  payload,
+  options,
+}: TInputQuery<
+  {
+    zone_id?: string | null
+  },
+  TZone
+>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
-    const rs = await api.get(`/cluster/zones/${payload.id}`)
+    const rs = await api.get(`/cluster/zones/${payload?.zone_id}`)
     return rs.data
   }
 

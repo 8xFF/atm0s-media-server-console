@@ -1,21 +1,35 @@
-'use client'
-
-import { TConnectorLogsEvents, TConnectorLogsPeers, TConnectorLogsRooms, TConnectorLogsSessions, TInputConnectorLogs } from './types'
+import { TConnectorLogEvents, TConnectorLogPeers, TConnectorLogRooms, TConnectorLogSessions } from './types'
 import { useQuery } from '@packages/ui/providers/index'
 import { useApi } from '@/hooks'
+import { TInputQuery } from '@/types'
 
 export * from './types'
 
-export const useConnectorLogsRoomsQuery = ({ payload, options }: TInputConnectorLogs<TConnectorLogsRooms>) => {
+export const useConnectorLogRoomsQuery = ({
+  payload,
+  options,
+}: TInputQuery<
+  {
+    connector_id?: string | null
+    page: number
+    limit: number
+  },
+  TConnectorLogRooms
+>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
-    const rs = await api.get(`/connector/${payload?.id}/log/rooms?page=${payload?.page}&limit=${payload?.limit}`)
+    const rs = await api.get(`/connector/${payload?.connector_id}/log/rooms`, {
+      params: {
+        page: payload?.page,
+        limit: payload?.limit,
+      },
+    })
     return rs.data
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogsRoomsQuery'],
+    queryKey: ['useConnectorLogRoomsQuery'],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -23,16 +37,33 @@ export const useConnectorLogsRoomsQuery = ({ payload, options }: TInputConnector
   })
 }
 
-export const useConnectorLogsPeersQuery = ({ payload, options }: TInputConnectorLogs<TConnectorLogsPeers>) => {
+export const useConnectorLogPeersQuery = ({
+  payload,
+  options,
+}: TInputQuery<
+  {
+    connector_id?: string | null
+    room_id?: string | null
+    page: number
+    limit: number
+  },
+  TConnectorLogPeers
+>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
-    const rs = await api.get(`/connector/${payload?.id}/log/peers?page=${payload?.page}&limit=${payload?.limit}`)
+    const rs = await api.get(`/connector/${payload?.connector_id}/log/peers`, {
+      params: {
+        room: payload?.room_id,
+        page: payload?.page,
+        limit: payload?.limit,
+      },
+    })
     return rs.data
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogsPeersQuery'],
+    queryKey: ['useConnectorLogPeersQuery'],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -40,16 +71,33 @@ export const useConnectorLogsPeersQuery = ({ payload, options }: TInputConnector
   })
 }
 
-export const useConnectorLogsSessionsQuery = ({ payload, options }: TInputConnectorLogs<TConnectorLogsSessions>) => {
+export const useConnectorLogSessionsQuery = ({
+  payload,
+  options,
+}: TInputQuery<
+  {
+    connector_id?: string | null
+    room_id?: string | null
+    page: number
+    limit: number
+  },
+  TConnectorLogSessions
+>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
-    const rs = await api.get(`/connector/${payload?.id}/log/sessions?page=${payload?.page}&limit=${payload?.limit}`)
+    const rs = await api.get(`/connector/${payload?.connector_id}/log/sessions`, {
+      params: {
+        room_id: payload?.room_id,
+        page: payload?.page,
+        limit: payload?.limit,
+      },
+    })
     return rs.data
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogsSessionsQuery'],
+    queryKey: ['useConnectorLogSessionsQuery'],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,
@@ -57,16 +105,31 @@ export const useConnectorLogsSessionsQuery = ({ payload, options }: TInputConnec
   })
 }
 
-export const useConnectorLogsEventsQuery = ({ payload, options }: TInputConnectorLogs<TConnectorLogsEvents>) => {
+export const useConnectorLogEventsQuery = ({
+  payload,
+  options,
+}: TInputQuery<
+  {
+    connector_id?: string | null
+    page: number
+    limit: number
+  },
+  TConnectorLogEvents
+>) => {
   const { api } = useApi()
 
   const fetcher = async () => {
-    const rs = await api.get(`/connector/${payload?.id}/log/events?page=${payload?.page}&limit=${payload?.limit}`)
+    const rs = await api.get(`/connector/${payload?.connector_id}/log/events`, {
+      params: {
+        page: payload?.page,
+        limit: payload?.limit,
+      },
+    })
     return rs.data
   }
 
   return useQuery({
-    queryKey: ['useConnectorLogsEventsQuery'],
+    queryKey: ['useConnectorLogEventsQuery'],
     queryFn: fetcher,
     retry: false,
     refetchInterval: 30000,

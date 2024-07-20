@@ -1,19 +1,17 @@
-'use client'
-
-import { DefinedInitialDataOptions } from '@packages/ui/providers/index'
-
-export type TDataConnectorLogsRooms = {
+export type TDataConnectorLogRooms = {
   id: number
   room: string
+  peers: number
+  created_at: number
 }
 
-export type TConnectorLogsRooms = {
-  data?: TDataConnectorLogsRooms[]
+export type TConnectorLogRooms = {
+  data?: TDataConnectorLogRooms[]
   error?: string
   status: boolean
 }
 
-export type TDataConnectorLogsPeers = {
+export type TDataConnectorLogPeers = {
   created_at: number
   id: number
   peer: string
@@ -30,13 +28,13 @@ export type TDataConnectorLogsPeers = {
   }[]
 }
 
-export type TConnectorLogsPeers = {
-  data?: TDataConnectorLogsPeers[]
+export type TConnectorLogPeers = {
+  data?: TDataConnectorLogPeers[]
   error?: string
   status: boolean
 }
 
-export type TDataConnectorLogsSessions = {
+export type TDataConnectorLogSessions = {
   created_at: number
   id: string
   ip?: string
@@ -53,13 +51,13 @@ export type TDataConnectorLogsSessions = {
   }[]
 }
 
-export type TConnectorLogsSessions = {
-  data?: TDataConnectorLogsSessions[]
+export type TConnectorLogSessions = {
+  data?: TDataConnectorLogSessions[]
   error?: string
   status: boolean
 }
 
-export type TDataConnectorLogsEvents = {
+export type TDataConnectorLogEvents = {
   created_at: number
   event: string
   id: number
@@ -69,17 +67,8 @@ export type TDataConnectorLogsEvents = {
   session: string
 }
 
-export type TConnectorLogsEvents = {
-  data?: TDataConnectorLogsEvents[]
+export type TConnectorLogEvents = {
+  data?: TDataConnectorLogEvents[]
   error?: string
   status: boolean
-}
-
-export type TInputConnectorLogs<T> = {
-  payload: {
-    id?: string | null
-    page?: number
-    limit?: number
-  }
-  options?: Omit<DefinedInitialDataOptions<T>, 'initialData' | 'queryKey'>
 }

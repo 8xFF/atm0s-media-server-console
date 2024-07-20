@@ -1,7 +1,3 @@
-'use client'
-
-import { DefinedInitialDataOptions } from '@packages/ui/providers/index'
-
 export type TDataZone = {
   connectors: number
   consoles: number
@@ -16,10 +12,6 @@ export type TZones = {
   data?: TDataZone[]
   error?: string
   status: boolean
-}
-
-export type TZonesInput = {
-  options?: Omit<DefinedInitialDataOptions<TZones>, 'initialData' | 'queryKey'>
 }
 
 export type TDataDetailZoneConns = {
@@ -52,11 +44,4 @@ export type TZone = {
   data?: TDataDetailZone
   error?: string
   status: boolean
-}
-
-export type TZoneInput = {
-  payload: {
-    id?: string | null
-  }
-  options?: Omit<DefinedInitialDataOptions<TZone>, 'initialData' | 'queryKey'>
 }

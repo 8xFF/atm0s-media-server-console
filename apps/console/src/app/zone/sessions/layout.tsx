@@ -4,20 +4,22 @@ type Props = {
   children: React.ReactNode
 }
 
-const ZoneListLayout: React.FC<Props> = ({ children }) => {
+const ZonePeersLayout: React.FC<Props> = ({ children }) => {
+  const title = 'Sessions'
   return (
     <Private>
       <Layout
         breadcrumbs={[
           {
             title: 'Zones',
-            href: '/',
+            href: '/zone/list',
           },
           {
-            title: 'Overview',
+            title,
           },
         ]}
-        title="Zones"
+        title={title}
+        hasBackButton
       >
         {children}
       </Layout>
@@ -25,4 +27,4 @@ const ZoneListLayout: React.FC<Props> = ({ children }) => {
   )
 }
 
-export default ZoneListLayout
+export default ZonePeersLayout

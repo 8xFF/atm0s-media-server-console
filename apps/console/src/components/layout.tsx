@@ -35,7 +35,7 @@ export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, visibleL
   const router = useRouter()
   const [layoutSettings, setLayoutSettings] = useRecoilState(layoutSettingsAtom)
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+    <div className="flex min-h-screen w-full flex-col bg-muted/40 pb-6">
       <SidebarDesktop />
       <div className="flex flex-col sm:gap-4 sm:pl-14">
         <Header title={title} />
@@ -54,7 +54,7 @@ export const Layout: React.FC<Props> = ({ children, breadcrumbs, title, visibleL
                     <BreadcrumbItem key={index}>
                       {breadcrumb.href ? (
                         <BreadcrumbLink asChild>
-                          <Link href="/">{breadcrumb.title}</Link>
+                          <Link href={breadcrumb.href}>{breadcrumb.title}</Link>
                         </BreadcrumbLink>
                       ) : (
                         <BreadcrumbItem>

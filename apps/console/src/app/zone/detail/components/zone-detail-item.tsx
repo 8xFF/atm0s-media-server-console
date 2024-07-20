@@ -1,9 +1,9 @@
 'use client'
 
 import { isNumber, map } from 'lodash'
+import { useRouter } from 'next/navigation'
 import { Badge, Button, Card, CardContent } from '@packages/ui/components/index'
 import { TDataDetailZoneCommon } from '@/hooks'
-import { useRouter } from 'next/navigation'
 
 type Props = {
   title: string
@@ -20,9 +20,7 @@ export const ZoneDetailItem: React.FC<Props> = ({ title, data, hasLogs }) => {
 
   return (
     <div>
-      <h2 className="font-medium capitalize mb-2">
-        {title}
-      </h2>
+      <h2 className="font-medium capitalize mb-2">{title}</h2>
       <div className="grid gap-4 xl:grid-cols-2">
         {map(data, (d, dIdx) => (
           <Card key={dIdx}>
@@ -33,11 +31,35 @@ export const ZoneDetailItem: React.FC<Props> = ({ title, data, hasLogs }) => {
                   <div className="flex-1">{d?.node_id}</div>
                 </div>
                 {hasLogs && (
-                  <Button onClick={() => {
-                    router.push(`/zone/logs?connector_id=${d?.node_id}`)
-                  }} variant="ghost" className="gap-1 text-xs h-8 items-center underline">
-                    View logs
-                  </Button>
+                  <div className="flex items-center">
+                    <Button
+                      onClick={() => {
+                        router.push(`/zone/rooms?connector_id=${d?.node_id}`)
+                      }}
+                      variant="ghost"
+                      className="gap-1 text-xs h-8 items-center underline"
+                    >
+                      Logs Rooms
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        router.push(`/zone/sessions?connector_id=${d?.node_id}`)
+                      }}
+                      variant="ghost"
+                      className="gap-1 text-xs h-8 items-center underline"
+                    >
+                      Logs Sessions
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        router.push(`/zone/events?connector_id=${d?.node_id}`)
+                      }}
+                      variant="ghost"
+                      className="gap-1 text-xs h-8 items-center underline"
+                    >
+                      Logs Events
+                    </Button>
+                  </div>
                 )}
               </div>
               <div className="text-xs flex flex-col lg:flex-row gap-y-2">

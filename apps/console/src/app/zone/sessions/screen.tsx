@@ -1,27 +1,38 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { TDataConnectorLogsSessions, useConnectorLogsSessionsQuery } from '@/hooks'
-import { Card, CardContent, CardHeader, CardTitle, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@packages/ui/components/index'
-import { map } from 'lodash'
 import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import { map } from 'lodash'
+import { useSearchParams } from 'next/navigation'
 import { Fragment, useState } from 'react'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@packages/ui/components/index'
 import { MinusIcon, PlusIcon } from '@packages/ui/icons/index'
+import { TDataConnectorLogSessions, useConnectorLogSessionsQuery } from '@/hooks'
 
-type Props = {
-}
+dayjs.extend(LocalizedFormat)
 
-export const LogsSessions: React.FC<Props> = () => {
+export const ZoneSessions = () => {
   const searchParams = useSearchParams()
-  const id = searchParams.get('connector_id')
-  const { data } = useConnectorLogsSessionsQuery({
+  const connector_id = searchParams.get('connector_id')
+  const { data: sessions } = useConnectorLogSessionsQuery({
     payload: {
-      id,
+      connector_id,
       page: 0,
       limit: 10000,
     },
     options: {
-      enabled: !!id,
+      enabled: !!connector_id,
     },
   })
   return (
@@ -39,8 +50,8 @@ export const LogsSessions: React.FC<Props> = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {map(data?.data, (d) => (
-              <LogsPeerItem session={d} key={d?.id} />
+            {map(sessions?.data, (s) => (
+              <LogsPeerItem session={s} key={s?.id} />
             ))}
           </TableBody>
         </Table>
@@ -50,30 +61,34 @@ export const LogsSessions: React.FC<Props> = () => {
 }
 
 type LogsPeerItemProps = {
-  session: TDataConnectorLogsSessions
+  session: TDataConnectorLogSessions
 }
 
-const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
-  session
-}) => {
+const LogsPeerItem: React.FC<LogsPeerItemProps> = ({ session }) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <>
       <TableRow className="cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <TableCell>
-          {!expanded ? <PlusIcon className="text-muted-foreground" size={16} /> : <MinusIcon className="text-muted-foreground" size={16} />}
+          {!expanded ? (
+            <PlusIcon className="text-muted-foreground" size={16} />
+          ) : (
+            <MinusIcon className="text-muted-foreground" size={16} />
+          )}
         </TableCell>
         <TableCell>{session?.id}</TableCell>
         <TableCell>{session?.ip}</TableCell>
         <TableCell>{session?.sdk}</TableCell>
         <TableCell>{session?.user_agent}</TableCell>
-        <TableCell className="text-right">{session?.created_at ? dayjs(session?.created_at).format('LLL') : '---'}</TableCell>
+        <TableCell className="text-right">
+          {session?.created_at ? dayjs(session?.created_at).format('LLL') : '---'}
+        </TableCell>
       </TableRow>
       {expanded && (
         <TableRow>
           <TableCell colSpan={6} className="bg-muted">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
                 <CardTitle className="text-base font-medium">Sessions</CardTitle>
               </CardHeader>
               <CardContent className="p-3 grid gap-2">
@@ -82,11 +97,9 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
                     <TableRow>
                       <TableHead>Id</TableHead>
                       <TableHead>Session</TableHead>
-                      <TableHead>Peer Id</TableHead>
-                      <TableHead>Peer</TableHead>
-                      <TableHead className="text-right">Leaved At</TableHead>
-                      <TableHead className="text-right">Joined At</TableHead>
                       <TableHead className="text-right">Created At</TableHead>
+                      <TableHead className="text-right">Joined At</TableHead>
+                      <TableHead className="text-right">Leaved At</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -95,16 +108,18 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({
                         <TableRow>
                           <TableCell>{s?.id}</TableCell>
                           <TableCell>{s?.session}</TableCell>
-                          <TableCell>{s?.peer_id}</TableCell>
-                          <TableCell>{s?.peer}</TableCell>
-                          <TableCell className="text-right">{s?.leaved_at ? dayjs(s?.leaved_at).format('LLL') : '---'}</TableCell>
-                          <TableCell className="text-right">{s?.joined_at ? dayjs(s?.joined_at).format('LLL') : '---'}</TableCell>
-                          <TableCell className="text-right">{s?.created_at ? dayjs(s?.created_at).format('LLL') : '---'}</TableCell>
+                          <TableCell className="text-right">
+                            {s?.created_at ? dayjs(s?.created_at).format('LLL') : '---'}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {s?.joined_at ? dayjs(s?.joined_at).format('LLL') : '---'}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {s?.leaved_at ? dayjs(s?.leaved_at).format('LLL') : '---'}
+                          </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell colSpan={5}>
-
-                          </TableCell>
+                          <TableCell colSpan={5}></TableCell>
                         </TableRow>
                       </Fragment>
                     ))}
