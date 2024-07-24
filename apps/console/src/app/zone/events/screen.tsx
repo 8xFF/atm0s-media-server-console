@@ -117,7 +117,7 @@ export const ZoneEvents = () => {
               </TableBody>
             </Table>
           </CardContent>
-          <CardFooter className="sticky bottom-0 bg-white pt-6">
+          <CardFooter className="sticky bottom-0 bg-white pt-6 rounded-lg overflow-hidden">
             <Pagination
               onFirst={onFirst}
               onLast={onLast}
