@@ -21,6 +21,7 @@ import {
 import { MinusIcon, PlusIcon } from '@packages/ui/icons/index'
 import { Layout, Pagination } from '@/components'
 import { TDataConnectorLogPeers, useConnectorLogPeersQuery } from '@/hooks'
+import { INITIAL_LIMIT, INITIAL_PAGE } from '@/utils'
 
 dayjs.extend(LocalizedFormat)
 
@@ -32,13 +33,13 @@ export const ZonePeers = () => {
 
   if (!connector_id) redirect('/zone/list')
 
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0
-  const [limit] = useState(20)
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : INITIAL_PAGE
+  const [limit, setLimit] = useState(INITIAL_LIMIT)
   const { data: peers } = useConnectorLogPeersQuery({
     payload: {
       connector_id,
       room_id,
-      page,
+      page: page - 1,
       limit,
     },
     options: {
@@ -47,12 +48,24 @@ export const ZonePeers = () => {
   })
 
   const onPrev = () => {
-    if (page === 0) return
-    router.push(`/zone/peers?connector_id=${connector_id}&room_id=${room_id}&page=${page - 1}`)
+    router.push(`/zone/peers?connector_id=${connector_id}&page=${page - 1}`)
   }
 
   const onNext = () => {
-    router.push(`/zone/peers?connector_id=${connector_id}&room_id=${room_id}&page=${page + 1}`)
+    router.push(`/zone/peers?connector_id=${connector_id}&page=${page + 1}`)
+  }
+
+  const onFirst = () => {
+    router.push(`/zone/peers?connector_id=${connector_id}&page=1`)
+  }
+
+  const onLast = () => {
+    router.push(`/zone/peers?connector_id=${connector_id}&page=${peers?.pagination?.total}`)
+  }
+
+  const onChangeLimit = (value: number) => {
+    setLimit(value)
+    router.push(`/zone/peers?connector_id=${connector_id}&page=1`)
   }
 
   return (
@@ -73,9 +86,6 @@ export const ZonePeers = () => {
       hasBackButton
     >
       <Card>
-        <CardHeader className="pb-0">
-          <Pagination onPrev={onPrev} onNext={onNext} />
-        </CardHeader>
         <CardContent className="p-3 grid gap-2">
           <Table>
             <TableHeader>
@@ -101,8 +111,16 @@ export const ZonePeers = () => {
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter>
-          <Pagination onPrev={onPrev} onNext={onNext} />
+        <CardFooter className="sticky bottom-0 bg-white pt-6">
+          <Pagination
+            onFirst={onFirst}
+            onLast={onLast}
+            onPrev={onPrev}
+            onNext={onNext}
+            pagination={peers?.pagination}
+            limit={limit}
+            setLimit={onChangeLimit}
+          />
         </CardFooter>
       </Card>
     </Layout>

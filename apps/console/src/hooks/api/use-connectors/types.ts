@@ -7,6 +7,10 @@ export type TDataConnectorLogRooms = {
 
 export type TConnectorLogRooms = {
   data?: TDataConnectorLogRooms[]
+  pagination?: {
+    current: number
+    total: number
+  }
   error?: string
   status: boolean
 }
@@ -30,6 +34,10 @@ export type TDataConnectorLogPeers = {
 
 export type TConnectorLogPeers = {
   data?: TDataConnectorLogPeers[]
+  pagination?: {
+    current: number
+    total: number
+  }
   error?: string
   status: boolean
 }
@@ -53,6 +61,10 @@ export type TDataConnectorLogSessions = {
 
 export type TConnectorLogSessions = {
   data?: TDataConnectorLogSessions[]
+  pagination?: {
+    current: number
+    total: number
+  }
   error?: string
   status: boolean
 }
@@ -69,6 +81,10 @@ export type TDataConnectorLogEvents = {
 
 export type TConnectorLogEvents = {
   data?: TDataConnectorLogEvents[]
+  pagination?: {
+    current: number
+    total: number
+  }
   error?: string
   status: boolean
 }

@@ -11,7 +11,6 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
   Table,
   TableBody,
   TableCell,
@@ -21,6 +20,7 @@ import {
 } from '@packages/ui/components/index'
 import { Layout, Pagination } from '@/components'
 import { useConnectorLogRoomsQuery } from '@/hooks'
+import { INITIAL_LIMIT, INITIAL_PAGE } from '@/utils'
 
 dayjs.extend(LocalizedFormat)
 
@@ -30,12 +30,12 @@ export const ZoneRooms = () => {
   const connector_id = searchParams.get('connector_id')
   if (!connector_id) redirect('/zone/list')
 
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0
-  const [limit] = useState(20)
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : INITIAL_PAGE
+  const [limit, setLimit] = useState(INITIAL_LIMIT)
   const { data: rooms } = useConnectorLogRoomsQuery({
     payload: {
       connector_id,
-      page,
+      page: page - 1,
       limit,
     },
     options: {
@@ -44,12 +44,24 @@ export const ZoneRooms = () => {
   })
 
   const onPrev = () => {
-    if (page === 0) return
     router.push(`/zone/rooms?connector_id=${connector_id}&page=${page - 1}`)
   }
 
   const onNext = () => {
     router.push(`/zone/rooms?connector_id=${connector_id}&page=${page + 1}`)
+  }
+
+  const onFirst = () => {
+    router.push(`/zone/rooms?connector_id=${connector_id}&page=1`)
+  }
+
+  const onLast = () => {
+    router.push(`/zone/rooms?connector_id=${connector_id}&page=${rooms?.pagination?.total}`)
+  }
+
+  const onChangeLimit = (value: number) => {
+    setLimit(value)
+    router.push(`/zone/rooms?connector_id=${connector_id}&page=1`)
   }
 
   return (
@@ -70,9 +82,6 @@ export const ZoneRooms = () => {
       hasBackButton
     >
       <Card>
-        <CardHeader className="pb-0">
-          <Pagination onPrev={onPrev} onNext={onNext} />
-        </CardHeader>
         <CardContent className="p-3 grid gap-2">
           <Table>
             <TableHeader>
@@ -113,8 +122,16 @@ export const ZoneRooms = () => {
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter>
-          <Pagination onPrev={onPrev} onNext={onNext} />
+        <CardFooter className="sticky bottom-0 bg-white pt-6">
+          <Pagination
+            onFirst={onFirst}
+            onLast={onLast}
+            onPrev={onPrev}
+            onNext={onNext}
+            pagination={rooms?.pagination}
+            limit={limit}
+            setLimit={onChangeLimit}
+          />
         </CardFooter>
       </Card>
     </Layout>
