@@ -1,5 +1,5 @@
-import { ZoneList } from './containers'
+import { ZoneList } from './screen'
 
-export default function ZonesScreen() {
+export default function ZonesPage() {
   return <ZoneList />
 }

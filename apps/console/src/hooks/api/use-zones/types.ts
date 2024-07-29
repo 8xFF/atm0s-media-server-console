@@ -1,7 +1,3 @@
-'use client'
-
-import { DefinedInitialDataOptions } from '@packages/ui/providers/index'
-
 export type TDataZone = {
   connectors: number
   consoles: number
@@ -18,10 +14,6 @@ export type TZones = {
   status: boolean
 }
 
-export type TZonesInput = {
-  options?: Omit<DefinedInitialDataOptions<TZones>, 'initialData' | 'queryKey'>
-}
-
 export type TDataDetailZoneConns = {
   addr: string
   node: number
@@ -35,25 +27,15 @@ export type TDataDetailZoneCommon = {
   disk: number
   memory: number
   node_id: number
+  live?: number
+  max?: number
 }
 
-export type TDataDetailZoneConsole = TDataDetailZoneCommon
-
-export type TDataDetailZoneGateway = {
-  live: number
-  max: number
-} & TDataDetailZoneCommon
-
-export type TDataDetailZoneMedia = {
-  live: number
-  max: number
-} & TDataDetailZoneCommon
-
 export type TDataDetailZone = {
-  connectors: any[]
-  consoles: TDataDetailZoneConsole[]
-  gateways: TDataDetailZoneGateway[]
-  medias: TDataDetailZoneMedia[]
+  connectors: TDataDetailZoneCommon[]
+  consoles: TDataDetailZoneCommon[]
+  gateways: TDataDetailZoneCommon[]
+  medias: TDataDetailZoneCommon[]
   lat: number
   lon: number
 }
@@ -62,11 +44,4 @@ export type TZone = {
   data?: TDataDetailZone
   error?: string
   status: boolean
-}
-
-export type TZoneInput = {
-  payload: {
-    id?: string | null
-  }
-  options?: Omit<DefinedInitialDataOptions<TZone>, 'initialData' | 'queryKey'>
 }

@@ -1,5 +1,6 @@
 export * from './logo'
 export * from './side-bar'
 export * from './header'
+export * from './pagination'
 export * from './layout'
 export * from './private'

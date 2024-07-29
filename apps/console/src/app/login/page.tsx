@@ -1,5 +1,5 @@
-import { Login } from './containers'
+import { Login } from './screen'
 
-export default function LoginScreen() {
+export default function LoginPage() {
   return <Login />
 }
