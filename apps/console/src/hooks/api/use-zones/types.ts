@@ -1,3 +1,9 @@
+export type TConsoles = {
+  data?: TDataDetailZoneCommon[]
+  error?: string
+  status: boolean
+}
+
 export type TDataZone = {
   connectors: number
   consoles: number

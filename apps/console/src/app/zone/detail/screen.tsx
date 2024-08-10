@@ -1,10 +1,8 @@
 'use client'
 
-import { ZoneDetailItem } from './components'
 import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
-import { ExternalLinkIcon } from '@packages/ui/icons/index'
-import { Layout } from '@/components'
+import { Layout, ZoneDetailSection } from '@/components'
 import { useDetailZoneQuery } from '@/hooks'
 
 export const ZoneDetail = () => {
@@ -39,15 +37,15 @@ export const ZoneDetail = () => {
         <Link
           href={`https://maps.google.com/?q=${dataDetailZone?.data?.lat},${dataDetailZone?.data?.lon}`}
           target="_blank"
-          className="flex items-center gap-2 text-muted-foreground font-medium w-fit"
+          className="flex text-xs lg:text-md items-center gap-2 text-muted-foreground font-medium w-fit"
         >
-          <div>Lat: {dataDetailZone?.data?.lat}</div>|<div>Lon: {dataDetailZone?.data?.lon}</div>
-          <ExternalLinkIcon size={16} />
+          <div className="whitespace-nowrap">Lat: {dataDetailZone?.data?.lat}</div>|
+          <div className="whitespace-nowrap">Lon: {dataDetailZone?.data?.lon}</div>
         </Link>
-        <ZoneDetailItem title="connectors" data={dataDetailZone?.data?.connectors} hasLogs />
-        <ZoneDetailItem title="consoles" data={dataDetailZone?.data?.consoles} />
-        <ZoneDetailItem title="gateways" data={dataDetailZone?.data?.gateways} />
-        <ZoneDetailItem title="medias" data={dataDetailZone?.data?.medias} />
+        <ZoneDetailSection title="connectors" data={dataDetailZone?.data?.connectors} hasLogs />
+        <ZoneDetailSection title="consoles" data={dataDetailZone?.data?.consoles} />
+        <ZoneDetailSection title="gateways" data={dataDetailZone?.data?.gateways} />
+        <ZoneDetailSection title="medias" data={dataDetailZone?.data?.medias} />
       </div>
     </Layout>
   )
