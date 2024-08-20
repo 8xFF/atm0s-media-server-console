@@ -1,6 +1,6 @@
 'use client'
 
-import { ZoneItem } from './components'
+import { CreateZone, ZoneItem } from './components'
 import { map } from 'lodash'
 import { Layout } from '@/components'
 import { useZonesQuery } from '@/hooks'
@@ -20,6 +20,9 @@ export const ZoneList = () => {
         },
       ]}
       title="Zones"
+      extra={
+        <CreateZone />
+      }
     >
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
         {map(dataZones?.data, (zone) => (

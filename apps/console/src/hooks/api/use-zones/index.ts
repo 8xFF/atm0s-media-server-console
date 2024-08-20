@@ -1,9 +1,25 @@
-import { TZone, TZones } from './types'
+import { TConsoles, TZone, TZones } from './types'
 import { useQuery } from '@packages/ui/providers/index'
 import { useApi } from '@/hooks'
 import { TInputQuery } from '@/types'
 
 export * from './types'
+
+export const useConsolesQuery = ({ options }: TInputQuery<{}, TConsoles>) => {
+  const { api } = useApi()
+
+  const fetcher = async () => {
+    const rs = await api.get('/cluster/consoles')
+    return rs.data
+  }
+
+  return useQuery({
+    queryKey: ['useConsolesQuery'],
+    queryFn: fetcher,
+    retry: false,
+    ...options,
+  })
+}
 
 export const useZonesQuery = ({ options }: TInputQuery<{}, TZones>) => {
   const { api } = useApi()
