@@ -89,8 +89,9 @@ export const ZoneSessions = () => {
               <TableRow>
                 <TableHead className="w-6" />
                 <TableHead>Id</TableHead>
-                <TableHead>IP</TableHead>
-                <TableHead>SDK</TableHead>
+                <TableHead>App</TableHead>
+                <TableHead>Ip</TableHead>
+                <TableHead>Sdk</TableHead>
                 <TableHead>User Agent</TableHead>
                 <TableHead className="text-right">Created At</TableHead>
               </TableRow>
@@ -141,6 +142,7 @@ const LogsPeerItem: React.FC<LogsPeerItemProps> = ({ session }) => {
           )}
         </TableCell>
         <TableCell>{session?.id}</TableCell>
+        <TableCell>{session?.app}</TableCell>
         <TableCell>{session?.ip}</TableCell>
         <TableCell>{session?.sdk}</TableCell>
         <TableCell>{session?.user_agent}</TableCell>
