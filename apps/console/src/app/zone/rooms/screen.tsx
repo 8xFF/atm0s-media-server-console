@@ -87,8 +87,10 @@ export const ZoneRooms = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Id</TableHead>
+                <TableHead>App</TableHead>
                 <TableHead>Room</TableHead>
                 <TableHead>Peers</TableHead>
+                <TableHead>Record</TableHead>
                 <TableHead className="text-right">Created At</TableHead>
                 <TableHead className="w-[102px]" />
               </TableRow>
@@ -98,8 +100,10 @@ export const ZoneRooms = () => {
                 map(rooms?.data, (r) => (
                   <TableRow key={r?.id}>
                     <TableCell>{r?.id}</TableCell>
+                    <TableCell>{r?.app}</TableCell>
                     <TableCell>{r?.room}</TableCell>
                     <TableCell>{r?.peers}</TableCell>
+                    <TableCell>{r?.record}</TableCell>
                     <TableCell className="text-right">
                       {r?.created_at ? dayjs(r?.created_at).format('LLL') : '---'}
                     </TableCell>

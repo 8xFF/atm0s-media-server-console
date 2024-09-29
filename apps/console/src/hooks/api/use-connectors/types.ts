@@ -1,8 +1,10 @@
 export type TDataConnectorLogRooms = {
   id: number
+  app: string,
   room: string
   peers: number
   created_at: number
+  record?: string
 }
 
 export type TConnectorLogRooms = {
@@ -44,6 +46,7 @@ export type TConnectorLogPeers = {
 
 export type TDataConnectorLogSessions = {
   created_at: number
+  app: string
   id: string
   ip?: string
   sdk: any
