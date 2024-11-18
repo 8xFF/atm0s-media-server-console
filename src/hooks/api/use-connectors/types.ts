@@ -1,6 +1,6 @@
 export type TDataConnectorLogRooms = {
   id: number
-  app: string,
+  app: string
   room: string
   peers: number
   created_at: number
