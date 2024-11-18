@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
+import { useLogout } from '@/hooks'
 import { Theme, useTheme } from '@/providers'
 import { BadgeCheck, Bell, ChevronsUpDown, LogOut, SunMoonIcon } from 'lucide-react'
 
@@ -33,6 +34,7 @@ type UserInfoProps = object
 export const UserInfo: React.FC<UserInfoProps> = () => {
   const { theme, setTheme } = useTheme()
   const { isMobile } = useSidebar()
+  const { onLogout } = useLogout()
 
   return (
     <DropdownMenu>
@@ -82,7 +84,7 @@ export const UserInfo: React.FC<UserInfoProps> = () => {
           </DropdownMenuPortal>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={onLogout}>
           <LogOut />
           Log out
         </DropdownMenuItem>
