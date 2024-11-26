@@ -1,9 +1,10 @@
 {
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./apps/console/*"],
+      "@/*": ["./src/*"]
     }
-  },
-  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  }
 }
